@@ -4,6 +4,7 @@ import pandas as pd
 
 app = FastAPI()
 
+
 # Cargar modelo al arrancar
 model = joblib.load("models/modelo_final.pkl")
 
