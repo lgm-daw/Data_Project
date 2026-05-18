@@ -2,15 +2,18 @@ from fastapi import FastAPI
 import joblib
 import pandas as pd
 
+from database.mongo import predictions_collection
+
+from datetime import datetime
+
 app = FastAPI()
 
-
-# Cargar modelo al arrancar
+# cargar modelo
 model = joblib.load("models/modelo_final.pkl")
 
 
 @app.get("/")
-def root():
+def home():
     return {"message": "API funcionando correctamente"}
 
 
@@ -21,6 +24,17 @@ def predict(data: dict):
 
     prediction = model.predict(df)
 
+    result = {
+        "input": data,
+        "prediction": int(prediction[0]),
+        "model": "RandomForest",
+        "timestamp": datetime.utcnow()
+    }
+
+    # guardar en Mongo
+    inserted = predictions_collection.insert_one(result)
+
     return {
+        "id": str(inserted.inserted_id),
         "prediction": int(prediction[0])
     }
