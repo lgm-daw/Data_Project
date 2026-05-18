@@ -8,7 +8,9 @@ jupyter
 notebook
 ipykernel
 fastapi
-uvicorn
+uvicorn[standard]
 pymongo
 pytest
 httpx
+python-multipart
+pydantic
