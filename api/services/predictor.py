@@ -10,10 +10,9 @@ class TitanicPredictor:
 
     def __init__(self):
         # Rutas a los archivos del modelo
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        model_path = os.path.join(base_dir, "notebook", "models", "modelo_final.pkl")
-        scaler_path = os.path.join(base_dir, "notebook", "models", "scaler.pkl")
-
+        base_dir = os.path.dirname(os.path.dirname(__file__))
+        model_path = os.path.join(base_dir, "models", "modelo_final.pkl")
+        scaler_path = os.path.join(base_dir, "models", "scaler.pkl")
         # Cargar modelo y scaler
         self.model = joblib.load(model_path)
         self.scaler = joblib.load(scaler_path)
